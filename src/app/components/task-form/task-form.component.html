@@ -1,0 +1,32 @@
+<form [formGroup]="taskForm" (ngSubmit)="onSubmit()" class="space-y-4 p-4 bg-white shadow-md rounded">
+  <div class="flex flex-col">
+    <label for="name" class="mb-1 text-sm font-medium text-gray-700">Title</label>
+    <input id="name" formControlName="name" required class="p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500">
+  </div>
+
+  <div class="flex flex-col">
+    <label for="description" class="mb-1 text-sm font-medium text-gray-700">Description</label>
+    <textarea id="description" formControlName="description" class="p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+  </div>
+
+  <div class="flex flex-col">
+    <label for="dueDate" class="mb-1 text-sm font-medium text-gray-700">Due Date</label>
+    <input id="dueDate" type="datetime-local" formControlName="dueDate" required class="p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500">
+  </div>
+
+  <div class="flex flex-col">
+    <label for="priority" class="mb-1 text-sm font-medium text-gray-700">Priority</label>
+    <select id="priority" formControlName="priority" class="p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500">
+      <option *ngFor="let priority of ['HIGH', 'MEDIUM', 'LOW']" [value]="priority">{{ priority }}</option>
+    </select>
+  </div>
+
+  <div class="flex flex-col">
+    <label for="status" class="mb-1 text-sm font-medium text-gray-700">Status</label>
+    <select id="status" formControlName="status" class="p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500">
+      <option *ngFor="let status of ['COMPLETED', 'IN_PROGRESS', 'TODO']" [value]="status">{{ status }}</option>
+    </select>
+  </div>
+
+  <button type="submit" [disabled]="taskForm.invalid" class="w-full py-2 bg-blue-500 text-white rounded hover:bg-blue-600 disabled:opacity-50">Create Task</button>
+</form>

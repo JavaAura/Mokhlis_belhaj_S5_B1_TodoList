@@ -7,6 +7,9 @@ import { Priority, Status, Task } from '../../models/task';
   styleUrls: ['./task-list.component.scss']
 })
 export class TaskListComponent implements OnInit {
+
+  showTaskForm = false;
+
   tasks: Task[] = [];
 
   constructor() {
@@ -34,6 +37,11 @@ export class TaskListComponent implements OnInit {
   }
   
   ngOnInit(): void {
+
+  }
+
+  toggleTaskForm() {
+    this.showTaskForm = !this.showTaskForm;
   }
 }
 

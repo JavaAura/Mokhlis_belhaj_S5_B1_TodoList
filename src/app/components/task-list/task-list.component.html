@@ -1,4 +1,4 @@
-<div class="space-y-6 p-6 bg-gray-50 rounded-lg shadow-md" >
+<div class="space-y-6 p-6 bg-gray-50 rounded-lg shadow-md">
   <!-- Header -->
   <div class="flex justify-between items-center">
     <div>
@@ -8,16 +8,30 @@
     <div class="flex gap-2">
       <button
         class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+        (click)="toggleTaskForm()"
       >
         Add Task
       </button>
     </div>
   </div>
 
+  <!-- Task Form as Modal -->
+  <div *ngIf="showTaskForm" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50" (click)="toggleTaskForm()">
+    <div class="bg-white p-6 rounded-lg shadow-lg w-full max-w-md" (click)="$event.stopPropagation()">
+      <h2 class="text-xl font-semibold text-gray-800 mb-4">Add New Task</h2>
+      <app-task-form></app-task-form>
+      <button
+        class="mt-4 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
+        (click)="toggleTaskForm()"
+      >
+        Close
+      </button>
+    </div>
+  </div>
+
   <ul class="space-y-4">
     <!-- Task List -->
-     <h2 class="text-lg font-semibold text-gray-800">Task List  {{tasks.length}} </h2>
-     <!--  -->
+    <h2 class="text-lg font-semibold text-gray-800">Task List {{tasks.length}}</h2>
     <li *ngFor="let task of tasks" class="p-4 bg-white rounded-lg shadow">
       <h2 class="text-lg font-semibold text-gray-800">{{ task.name }}</h2>
       <p class="text-gray-600">{{ task.description }}</p>
