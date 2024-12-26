@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Priority, Status, Task } from '../../models/task';
+import { Task } from '../../models/task';
+import { TaskService } from '../../service/task/task.service';
 
 @Component({
   selector: 'app-task-list',
@@ -7,41 +8,45 @@ import { Priority, Status, Task } from '../../models/task';
   styleUrls: ['./task-list.component.scss']
 })
 export class TaskListComponent implements OnInit {
-
-  showTaskForm = false;
-
   tasks: Task[] = [];
+  showCreateForm = false;
+  showUpdateForm = false;
+  selectedTask?: Task;
 
-  constructor() {
-    // Initialize with some sample tasks
-    this.tasks = [
-      {
-        id: 1,
-        name: 'Complete Project Proposal',
-        description: 'Write and submit the project proposal document',
-        dueDate: '2024-01-15',
-        priority: Priority.HIGH,
-        status: Status.IN_PROGRESS
+  constructor(private taskService: TaskService) {}
 
-
-      },
-      {
-        id: 2,
-        name: 'Review Code',
-        description: 'Review pull requests from team members',
-        dueDate: '2024-01-15',
-        priority: Priority.HIGH,
-        status: Status.IN_PROGRESS
-      }
-    ];
-  }
-  
-  ngOnInit(): void {
-
+  ngOnInit() {
+    this.taskService.tasks$.subscribe(tasks => {
+      this.tasks = tasks;
+    });
   }
 
-  toggleTaskForm() {
-    this.showTaskForm = !this.showTaskForm;
+  onTaskCreated(task: Task) {
+    this.taskService.createTask(task).subscribe(() => {
+      this.showCreateForm = false;
+    });
+  }
+
+  onTaskUpdated(task: Task) {
+    this.taskService.updateTask(task).subscribe(() => {
+      this.showUpdateForm = false;
+      this.selectedTask = undefined;
+    });
+  }
+
+  onDeleteTask(id: string) {
+    this.taskService.deleteTask(id).subscribe();
+  }
+
+  onEditTask(task: Task) {
+    this.selectedTask = { ...task };
+    this.showUpdateForm = true;
+  }
+
+  closeModals() {
+    this.showCreateForm = false;
+    this.showUpdateForm = false;
+    this.selectedTask = undefined;
   }
 }
 

@@ -19,7 +19,7 @@ import { TaskFormComponent } from './components/task-form/task-form.component';
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
