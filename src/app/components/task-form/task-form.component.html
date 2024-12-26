@@ -1,0 +1,81 @@
+<form [formGroup]="taskForm" (ngSubmit)="onSubmit()" class="space-y-4 p-4 bg-white shadow-md rounded">
+  <div class="flex flex-col">
+    <label for="name" class="mb-1 text-sm font-medium text-gray-700">Title</label>
+    <input 
+      id="name" 
+      formControlName="name" 
+      [class.border-red-500]="isFieldInvalid('name')"
+      class="p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500">
+    <div *ngIf="isFieldInvalid('name')" class="text-red-500 text-sm mt-1">
+      {{ getErrorMessage('name') }}
+    </div>
+  </div>
+
+  <div class="flex flex-col">
+    <label for="description" class="mb-1 text-sm font-medium text-gray-700">Description</label>
+    <textarea 
+      id="description" 
+      formControlName="description"
+      [class.border-red-500]="isFieldInvalid('description')"
+      class="p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+    <div *ngIf="isFieldInvalid('description')" class="text-red-500 text-sm mt-1">
+      {{ getErrorMessage('description') }}
+    </div>
+  </div>
+
+  <div class="flex flex-col">
+    <label for="dueDate" class="mb-1 text-sm font-medium text-gray-700">Due Date</label>
+    <input 
+      id="dueDate" 
+      type="datetime-local" 
+      formControlName="dueDate"
+      [class.border-red-500]="isFieldInvalid('dueDate')"
+      class="p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500">
+    <div *ngIf="isFieldInvalid('dueDate')" class="text-red-500 text-sm mt-1">
+      {{ getErrorMessage('dueDate') }}
+    </div>
+  </div>
+
+  <div class="flex flex-col">
+    <label for="priority" class="mb-1 text-sm font-medium text-gray-700">Priority</label>
+    <select 
+      id="priority" 
+      formControlName="priority"
+      [class.border-red-500]="isFieldInvalid('priority')"
+      class="p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500">
+      <option [value]="Priority.HIGH">HIGH</option>
+      <option [value]="Priority.MEDIUM">MEDIUM</option>
+      <option [value]="Priority.LOW">LOW</option>
+    </select>
+    <div *ngIf="isFieldInvalid('priority')" class="text-red-500 text-sm mt-1">
+      {{ getErrorMessage('priority') }}
+    </div>
+  </div>
+
+  <div class="flex flex-col">
+    <label for="status" class="mb-1 text-sm font-medium text-gray-700">Status</label>
+    <select 
+      id="status" 
+      formControlName="status"
+      [class.border-red-500]="isFieldInvalid('status')"
+      class="p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500">
+      <option [value]="Status.TODO">TODO</option>
+      <option [value]="Status.IN_PROGRESS">IN PROGRESS</option>
+      <option [value]="Status.COMPLETED">COMPLETED</option>
+    </select>
+    <div *ngIf="isFieldInvalid('status')" class="text-red-500 text-sm mt-1">
+      {{ getErrorMessage('status') }}
+    </div>
+  </div>
+
+  <button 
+    type="submit" 
+    [disabled]="taskForm.invalid && submitted"
+    class="w-full py-2 px-4 bg-blue-600 text-white rounded hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed">
+    {{ update ? 'Update Task' : 'Create Task' }}
+  </button>
+
+  <div *ngIf="error" class="p-3 text-red-500 bg-red-100 rounded">
+    {{ error }}
+  </div>
+</form>

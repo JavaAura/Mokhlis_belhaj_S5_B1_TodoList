@@ -1,0 +1,36 @@
+[
+    {
+        "id": 1,
+        "name": "Task 1",
+        "description": "This is the first task",
+        "dueDate": "2024-01-15",
+        "priority": "High",
+        "status": "In Progress"
+      
+    },
+    {
+        "id": 2,
+        "name": "Task 2",
+        "description": "This is the second task",
+        "dueDate": "2024-01-15",
+        "priority": "High",
+        "status": "In Progress"
+    
+    },
+    {
+        "id": 3,
+        "name": "Task 3",
+        "description": "This is the third task",
+        "dueDate": "2024-01-15",
+        "priority": "High",
+        "status": "In Progress" 
+    },
+    {
+        "id": 4,
+        "name": "Task 4",
+        "description": "This is the fourth task",
+        "dueDate": "2024-01-15",
+        "priority": "High",
+        "status": "In Progress"
+    }
+] 
