@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Task } from '../../models/task';
+import { Status, Task } from '../../models/task';
 import { TaskService } from '../../service/task/task.service';
 
 @Component({
@@ -47,6 +47,11 @@ export class TaskListComponent implements OnInit {
     this.showCreateForm = false;
     this.showUpdateForm = false;
     this.selectedTask = undefined;
+  }
+
+  isOverdue(task: Task): boolean {
+    return new Date(task.dueDate) < new Date() && 
+           task.status !== Status.COMPLETED;
   }
 }
 
