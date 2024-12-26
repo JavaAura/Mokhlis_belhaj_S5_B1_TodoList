@@ -100,6 +100,7 @@ export class TaskFormComponent implements OnInit {
     this.submitted = true;
     
     if (this.taskForm.valid) {
+      
       const formData = this.taskForm.value;
       
       if (this.update && this.task) {
@@ -114,6 +115,8 @@ export class TaskFormComponent implements OnInit {
           ...formData,
           createdAt: new Date().toISOString()
         };
+
+        console.log(formData);
         this.taskCreated.emit(newTask);
       }
       this.resetForm();
