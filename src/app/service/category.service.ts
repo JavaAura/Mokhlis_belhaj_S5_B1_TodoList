@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
 import { Category } from '../models/category';
+import { Task } from '../models/task';
 
 @Injectable({
   providedIn: 'root'
@@ -61,6 +62,15 @@ export class CategoryService {
   }
 
   deleteCategory(id: string): Observable<void> {
+    const tasks = JSON.parse(localStorage.getItem('tasks') || '[]');
+    const updatedTasks = tasks.map((task: Task) => {
+      if (task.categoryId === id) {
+        return { ...task, categoryId: undefined };
+      }
+      return task;
+    });
+    localStorage.setItem('tasks', JSON.stringify(updatedTasks));
+
     const categories = this.categoriesSubject.value.filter(cat => cat.id !== id);
     localStorage.setItem('categories', JSON.stringify(categories));
     this.categoriesSubject.next(categories);
@@ -70,5 +80,10 @@ export class CategoryService {
   private loadCategoriesFromLocalStorage(): Category[] {
     const categories = localStorage.getItem('categories');
     return categories ? JSON.parse(categories) : [];
+  }
+
+  getTasksByCategory(categoryId: string): Task[] {
+    const tasks = JSON.parse(localStorage.getItem('tasks') || '[]');
+    return tasks.filter((task: Task) => task.categoryId === categoryId);
   }
 }

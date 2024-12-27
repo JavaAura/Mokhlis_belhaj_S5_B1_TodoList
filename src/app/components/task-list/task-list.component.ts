@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Status, Task } from '../../models/task';
 import { TaskService } from '../../service/task/task.service';
+import { Category } from '../../models/category';
+import { CategoryService } from '../../service/category.service';
 
 @Component({
   selector: 'app-task-list',
@@ -12,12 +14,20 @@ export class TaskListComponent implements OnInit {
   showCreateForm = false;
   showUpdateForm = false;
   selectedTask?: Task;
+  categories: Category[] = [];
 
-  constructor(private taskService: TaskService) {}
+  constructor(
+    private taskService: TaskService,
+    private categoryService: CategoryService
+  ) {}
 
   ngOnInit() {
     this.taskService.tasks$.subscribe(tasks => {
       this.tasks = tasks;
+    });
+
+    this.categoryService.categories$.subscribe(categories => {
+      this.categories = categories;
     });
   }
 
@@ -52,6 +62,11 @@ export class TaskListComponent implements OnInit {
   isOverdue(task: Task): boolean {
     return new Date(task.dueDate) < new Date() && 
            task.status !== Status.COMPLETED;
+  }
+
+  getCategoryName(categoryId: string): string {
+    const category = this.categories.find(c => c.id === categoryId);
+    return category ? category.name : '';
   }
 }
 

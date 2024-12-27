@@ -42,6 +42,12 @@
               }">
           {{task.status}}
         </span>
+        <div *ngIf="task.categoryId" class="mt-2">
+          <span class="text-sm font-bold text-gray-700">Category:</span>
+          <span class="ml-2 px-2 py-1 bg-gray-100 text-gray-800 rounded text-sm">
+            {{ getCategoryName(task.categoryId) }}
+          </span>
+        </div>
       </div>
       <div class="mt-4 space-x-2">
         <button (click)="onEditTask(task)" 

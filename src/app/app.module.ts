@@ -6,11 +6,10 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TaskListComponent } from './components/task-list/task-list.component';
-import { TaskFormComponent } from './components/task-form/task-form.component';
 import { CategoryListComponent } from './components/category-list/category-list.component';
-import { NavbarComponent } from './layout/navbar/navbar.component';
 import { CategoryFormComponent } from './components/category-form/category-form.component';
-
+import { NavbarComponent } from './layout/navbar/navbar.component';
+import { TaskFormComponent } from './components/task-form/task-form.component';
 
 @NgModule({
   declarations: [
@@ -18,14 +17,14 @@ import { CategoryFormComponent } from './components/category-form/category-form.
     TaskListComponent,
     TaskFormComponent,
     CategoryListComponent,
-    NavbarComponent,
-    CategoryFormComponent
+    CategoryFormComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    ReactiveFormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

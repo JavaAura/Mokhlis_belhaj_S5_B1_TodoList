@@ -1,6 +1,8 @@
 import { Component, Output, EventEmitter, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { Priority, Status, Task } from '../../models/task';
+import { CategoryService } from '../../service/category.service';
+import { Category } from '../../models/category';
 
 @Component({
   selector: 'app-task-form',
@@ -17,22 +19,22 @@ export class TaskFormComponent implements OnInit {
   @Output() taskUpdated = new EventEmitter<Task>();
   error: string = '';
   submitted = false;
+  categories: Category[] = [];
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    private categoryService: CategoryService
+  ) {
     this.initForm();
   }
 
   ngOnInit() {
+    this.categoryService.categories$.subscribe(categories => {
+      this.categories = categories;
+    });
+
     if (this.update && this.task) {
-      this.initForm();
-      
-      this.taskForm.patchValue({
-        name: this.task.name,
-        description: this.task.description,
-        dueDate: this.formatDate(this.task.dueDate),
-        priority: this.task.priority,
-        status: this.task.status
-      });
+      this.taskForm.patchValue(this.task);
     }
   }
 
@@ -42,11 +44,12 @@ export class TaskFormComponent implements OnInit {
 
   private initForm() {
     this.taskForm = this.fb.group({
-      name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
+      name: ['', [Validators.required, Validators.minLength(3)]],
       description: ['', [Validators.maxLength(500)]],
       dueDate: ['', [Validators.required, this.futureDateValidator()]],
       priority: [Priority.MEDIUM, [Validators.required]],
-      status: [Status.TODO, [Validators.required]]
+      status: [Status.TODO, [Validators.required]],
+      categoryId: ['']
     });
   }
 
