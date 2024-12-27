@@ -1,0 +1,72 @@
+<div class="container mx-auto p-4">
+  <!-- Alert Message -->
+  <div *ngIf="alertMessage" 
+       [class.bg-green-100]="alertType === 'success'"
+       [class.bg-red-100]="alertType === 'error'"
+       [class.text-green-700]="alertType === 'success'"
+       [class.text-red-700]="alertType === 'error'"
+       class="p-4 rounded mb-4 transition-all duration-500">
+    {{ alertMessage }}
+  </div>
+
+  <div class="flex justify-between items-center mb-6">
+    <h2 class="text-2xl font-bold">Categories</h2>
+    <button (click)="showCreateForm = true" 
+            class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
+      Add Category
+    </button>
+  </div>
+
+  <div class="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+    <div *ngFor="let category of categories" 
+         class="bg-white p-4 rounded-lg shadow">
+      <h3 class="text-xl font-semibold">{{category.name}}</h3>
+      <p class="text-gray-600 mt-2">{{category.description}}</p>
+      <div class="mt-4 space-x-2">
+        <button (click)="onEditCategory(category)" 
+                class="px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700">
+          Edit
+        </button>
+        <button (click)="onDeleteCategory(category.id)"
+                class="px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700">
+          Delete
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Create Category Modal -->
+  <div *ngIf="showCreateForm" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"
+       (click)="closeModals()">
+    <div class="bg-white rounded-lg p-6 w-full max-w-md" (click)="$event.stopPropagation()">
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="text-xl font-bold">Create New Category</h2>
+        <button (click)="closeModals()" class="text-gray-500 hover:text-gray-700">
+          <span class="text-2xl">&times;</span>
+        </button>
+      </div>
+      <app-category-form 
+        (categoryCreated)="onCategoryCreated($event)">
+      </app-category-form>
+    </div>
+  </div>
+
+  <!-- Update Category Modal -->
+  <div *ngIf="showUpdateForm" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"
+       (click)="closeModals()">
+    <div class="bg-white rounded-lg p-6 w-full max-w-md" (click)="$event.stopPropagation()">
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="text-xl font-bold">Update Category</h2>
+        <button (click)="closeModals()" class="text-gray-500 hover:text-gray-700">
+          <span class="text-2xl">&times;</span>
+        </button>
+      </div>
+      <app-category-form 
+        *ngIf="selectedCategory"
+        [category]="selectedCategory"
+        [update]="true"
+        (categoryUpdated)="onCategoryUpdated($event)">
+      </app-category-form>
+    </div>
+  </div>
+</div>

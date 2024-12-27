@@ -1,0 +1,24 @@
+<nav class="bg-white">
+  <div class="container mx-auto px-4">
+    <div class="flex items-center justify-between h-16">
+      <div class="flex items-center space-x-4">
+        <a routerLink="/" 
+           class="text-black font-bold text-xl">
+          Task Manager
+        </a>
+        <div class="flex space-x-4">
+          <a routerLink="/tasks" 
+             routerLinkActive="border-b-2 border-blue-400 transition duration-300 ease-in-out transform hover:scale-105 "
+             class="text-black hover:font-bold hover:text-blue-800 px-3 py-2 rounded-md">
+            Tasks
+          </a>
+          <a routerLink="/categories" 
+             routerLinkActive="border-b-2 border-blue-400 transition duration-300 ease-in-out transform hover:scale-105 "
+             class="text-black hover:font-bold hover:text-blue-800 px-3 py-2 rounded-md">
+            Categories
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
