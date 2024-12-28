@@ -1,6 +1,8 @@
 import { Component, Output, EventEmitter, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { Priority, Status, Task } from '../../models/task';
+import { CategoryService } from '../../service/category.service';
+import { Category } from '../../models/category';
 
 @Component({
   selector: 'app-task-form',
@@ -17,21 +19,23 @@ export class TaskFormComponent implements OnInit {
   @Output() taskUpdated = new EventEmitter<Task>();
   error: string = '';
   submitted = false;
+  categories: Category[] = [];
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    private categoryService: CategoryService
+  ) {
     this.initForm();
   }
 
   ngOnInit() {
+    this.categoryService.categories$.subscribe(categories => {
+      this.categories = categories;
+    });
+
     if (this.update && this.task) {
-      this.initForm();
-      
       this.taskForm.patchValue({
-        name: this.task.name,
-        description: this.task.description,
-        dueDate: this.formatDate(this.task.dueDate),
-        priority: this.task.priority,
-        status: this.task.status
+        ...this.task
       });
     }
   }
@@ -46,7 +50,8 @@ export class TaskFormComponent implements OnInit {
       description: ['', [Validators.maxLength(500)]],
       dueDate: ['', [Validators.required, this.futureDateValidator()]],
       priority: [Priority.MEDIUM, [Validators.required]],
-      status: [Status.TODO, [Validators.required]]
+      status: [Status.TODO, [Validators.required]],
+      categoryId: ['']
     });
   }
 
@@ -54,8 +59,10 @@ export class TaskFormComponent implements OnInit {
     return (control: AbstractControl): {[key: string]: any} | null => {
       if (control.value) {
         const today = new Date();
+        today.setHours(0, 0, 0, 0); // Reset time part for date comparison
         const inputDate = new Date(control.value);
         
+        // Allow same date when updating
         if (this.update && this.task && 
             new Date(this.task.dueDate).getTime() === inputDate.getTime()) {
           return null;
@@ -100,7 +107,6 @@ export class TaskFormComponent implements OnInit {
     this.submitted = true;
     
     if (this.taskForm.valid) {
-      
       const formData = this.taskForm.value;
       
       if (this.update && this.task) {
@@ -111,12 +117,10 @@ export class TaskFormComponent implements OnInit {
         this.taskUpdated.emit(updatedTask);
       } else {
         const newTask: Task = {
-          id: Date.now().toString(),
+          id: Date.now(),
           ...formData,
           createdAt: new Date().toISOString()
         };
-
-        console.log(formData);
         this.taskCreated.emit(newTask);
       }
       this.resetForm();

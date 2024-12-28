@@ -17,4 +17,5 @@ export enum Status {
     dueDate: string;
     priority: Priority;
     status: Status;
+    categoryId?: string;
   } 
