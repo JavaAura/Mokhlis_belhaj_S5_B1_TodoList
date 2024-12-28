@@ -2,7 +2,7 @@
 
 Une application moderne de gestion des tâches construite avec Angular et Tailwind CSS qui aide les utilisateurs à organiser leurs tâches, suivre leur progression et gérer les catégories efficacement.
 
-![Capture d'écran du Gestionnaire de Tâches](src\assets\image\image.png)
+![Capture d'écran du Gestionnaire de Tâches](https://github.com/JavaAura/Mokhlis_belhaj_S5_B1_TodoList/blob/main/src/assets/image/image.png)
 
 ## Fonctionnalités
 
