@@ -11,6 +11,7 @@ import { CategoryListComponent } from './components/category-list/category-list.
 import { NavbarComponent } from './layout/navbar/navbar.component';
 import { CategoryFormComponent } from './components/category-form/category-form.component';
 import { SearchBarComponent } from './components/search-bar/search-bar.component';
+import { StatistiquesComponent } from './components/statistiques/statistiques.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { SearchBarComponent } from './components/search-bar/search-bar.component
     CategoryListComponent,
     NavbarComponent,
     CategoryFormComponent,
-    SearchBarComponent
+    SearchBarComponent,
+    StatistiquesComponent
   ],
   imports: [
     BrowserModule,
