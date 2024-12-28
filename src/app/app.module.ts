@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -10,6 +10,7 @@ import { TaskFormComponent } from './components/task-form/task-form.component';
 import { CategoryListComponent } from './components/category-list/category-list.component';
 import { NavbarComponent } from './layout/navbar/navbar.component';
 import { CategoryFormComponent } from './components/category-form/category-form.component';
+import { SearchBarComponent } from './components/search-bar/search-bar.component';
 
 
 @NgModule({
@@ -19,13 +20,15 @@ import { CategoryFormComponent } from './components/category-form/category-form.
     TaskFormComponent,
     CategoryListComponent,
     NavbarComponent,
-    CategoryFormComponent
+    CategoryFormComponent,
+    SearchBarComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
     ReactiveFormsModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
